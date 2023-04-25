@@ -1,0 +1,74 @@
+EXPERIMENT NO 2- 
+
+
+import pandas as pd
+import numpy as np 
+import seaborn as sns
+import matplotlib.pyplot as plt
+import scipy
+from scipy.stats import norm
+from scipy.stats import kurtosis
+from scipy.stats import pearsonr
+titanic_df = pd.read_csv('titanic.csv')
+
+titanic_df.columns = ['PassengerID','Survival','Pclass','Name','Sex','Age','SibSp','Parch','Ticket','Fare','Cabin','Embarked']
+
+
+print('mean=',titanic_df['Age'].mean())
+print('median=',titanic_df['Age'].median())
+print('mode=',titanic_df['Age'].mode())
+
+Output-
+mean= 29.69911764705882
+median= 28.0
+mode= 0    24.0
+dtype: float64
+
+print("Variance=", np.var(titanic_df['Age']))
+print("Mean=", np.mean(titanic_df['Age']))
+print("Min=", np.min(titanic_df['Age']))
+print("Max=", np.max(titanic_df['Age']))
+print("Range=", np.max(titanic_df['Age']) - np.min(titanic_df['Age']))
+
+Output-
+Variance= 210.72357975366614
+Mean= 29.69911764705882
+Min= 0.42
+Max= 80.0
+Range= 79.58
+
+print('Standard Deviation=',titanic_df['Age'].std())
+
+Output-
+Standard Deviation= 14.526497332334042
+
+titanic_df['Age'].describe()
+
+Output-
+count    714.000000
+mean      29.699118
+std       14.526497
+min        0.420000
+25%       20.125000
+50%       28.000000
+75%       38.000000
+max       80.000000
+Name: Age, dtype: float64
+
+plt.figure(figsize=(12,6))
+sns.distplot(titanic_df['Fare'], fit=norm, color="r")
+
+print("Skew of data: %f " % titanic_df['Fare'].skew())
+print("Kurtosis of data: %f " % kurtosis(titanic_df['Fare'],fisher=False))
+
+Output-
+Skew of data: 4.787317 
+Kurtosis of data: 36.204289 
+
+list1 = titanic_df['Fare']
+list2 = titanic_df['Pclass']
+corr, _ = pearsonr(list1, list2)
+print('Pearsons correlation: %.3f' % corr)
+
+Output-
+Pearsons correlation: -0.549
